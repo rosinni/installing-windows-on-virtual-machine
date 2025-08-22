@@ -1,39 +1,71 @@
 # `04` Validate your installation
+To validate that your Windows 10 virtual machine in VirtualBox meets the course requirements, we will use a script that will generate a report of your VM on your host machine (your actual PC).
 
-## 1. CURL
+**Important!** Before proceeding, ensure your Windows virtual machine in VirtualBox meets these minimum requirements:
+* **Operating System:** Windows 10 (64-bit).
+* **Memory (RAM):** At least 2 GB (2048 MB) allocated to the VM.
+* **CPUs (Processors):** At least 2 CPUs allocated to the VM.
+    *(You can check and adjust this in the VM's settings in VirtualBox, under the "System" section, with the VM powered off).*
 
-It is a tool that allows you to make requests to a web page from the terminal of your system, it can also perform other functions, but this is the one that concerns us in this case.
+---
 
-For windows you must download the tool from [this link]((https://curl.se/windows/)) and then install it before proceeding to the next step.
+## 1. Add the `VBoxManage` command to your Host Machine's PATH (Windows)
 
-## 2. Enable public port
+This step is crucial for the script to be able to communicate with VirtualBox.
 
-In order for learnpack to receive the information that will be send from your machine, is necessary to enable public access to the port, witch for safety reasons comes private by default.
+* **Find the location of `VBoxManage.exe`:**
+    * Generally, it is located in the VirtualBox installation directory: `C:\Program Files\Oracle\VirtualBox`.
+    * **Copy this full path.**
 
-For this select the "Ports" tab in the lower panel of codespace, there you'll see the ports that are beign used. You'll need to publish the port `3001` and for that right click on the port, go to the menu `Port visibility` and select the `Public` option.
+* **Access environment variable settings and modify the `Path` variable:**
+    * Right-click the **Windows Start** button and select **System**.
+    * In the System window, find and select **Advanced system settings**.
+    * In the "System Properties" window, click the **Environment Variables...** button.
+    * In the "System variables" section (the bottom one), find and select the variable named **`Path`**.
+    * Click the **Edit...** button.
+    * In the "Edit environment variable" window, click **New** (or click in an empty space and paste the path).
+    * **Paste the path you copied earlier** (e.g., `C:\Program Files\Oracle\VirtualBox`).
+    * Click **OK** on all open windows to save the changes.
 
-![Public port](../../.learn/assets/public-ports.png)
+* **Verify the configuration (very important):**
+    * Open a new **Command Prompt (CMD)** or **PowerShell** window (by searching for "cmd" or "powershell" in the Start menu).
+    * Type the following command and press Enter:
+        ```bash
+        VBoxManage --version
+        ```
+    * If you see a version number (e.g., `7.0.12r159484`), it means `VBoxManage` is in your `PATH` and Step 1 is completed successfully! If you receive an error, review the previous steps.
 
-## 2. Validation Script
+---
 
-It is a script that we have developed to the measure of this practice. It is in charge of taking the information from VirtualBox and send it to do the validation. First you must download the script and run it, it will ask you for a URL that you can find it next to the `port 3001`.
+## 2. Execute the `report_windows.bat` script and upload the report
 
-[Downlad the script for valication on Windows here.](https://github.com/4GeeksAcademy/installing-windows-on-virtual-machine/raw/master/.learn/assets/sendDataWin.zip)
+This script will generate a file with the configuration of all your virtual machines.
 
-[Downlad the script for valication on Linux here.]((https://github.com/4GeeksAcademy/installing-windows-on-virtual-machine/raw/master/.learn/assets/sendDataBash.zip))
+* **Download the `report_windows.bat` script:** This script is located inside the `./.learn/assets` folder in your LearnPack files (in your codespace). Download it to your host machine (your actual PC). You can right-click on the file in your codespace editor and look for a "Download" option.
+* **Copy the downloaded `report_windows.bat` file to your Windows Desktop** (or an easy-to-find location).
+* **Execute the script:** Double-click on `report_windows.bat`. You should see a Command Prompt window briefly appear and disappear.
+* **Verify report generation:** After executing it, **a new file named `windows_report.txt` will have been created on the same Desktop.**
 
-Remember extracting the file before executing it inside your virtual machine.
+* **Copy `windows_report.txt` to the root of your LearnPack exercises:**
+    * Open your codespace/LearnPack in your web browser.
+    * Locate the main folder of your exercise. This is the folder where the `learn.json` file is located.
+    * Drag and drop the `windows_report.txt` file from your Windows Desktop directly into the root folder of your LearnPack in the browser. Make sure it lands **at the same level as `learn.json`**. It should not be inside any subfolders like `.learn` or `assets`.
 
-![Script Windows](../../.learn/assets/script-win.png)
+    > ⚠️ **The `windows_report.txt` file must be directly in the root of your project, next to the `learn.json` file!**
 
-## 3. Running the test
+---
 
-Once the script is successfully executed, you will be able to run the test to validate your Windows installation in VirtualBox.
+## 3. Run the validation test
 
-![Script Windows](../../.learn/assets/script-test.png)
+Once you have copied the `windows_report.txt` file to the root of your LearnPack exercises, you can run the test to validate your Windows installation in VirtualBox.
 
-## 4. Done!
+* In the LearnPack interface, find the button or option to "Run Test" or "Validate" for this particular exercise.
+* Click on it and wait for the results.
 
-If you passed the tests, you have already installed a virtual machine with windows. This will be your safe place to do experiments and tests during the course.
+---
 
-If you have any problems do not hesitate to contact a mentor or the other support channels offered by 4Geeks.
+## 4. All Done!
+
+If you see the message that your tests passed, **congratulations!** You have successfully installed and configured your Windows virtual machine in VirtualBox. This will be your safe space for experimentation and testing throughout the course.
+
+If you encounter any issues, do not hesitate to contact a mentor or the other support channels offered by 4Geeks.
